@@ -213,9 +213,6 @@ class TrainLoop:
                 torch.cuda.synchronize()
                 stats["elapsed_time"] = time.time() - start_time
                 stats = tree_map(lambda x: float(f"{x:.4g}") if isinstance(x, float) else x, stats)
-                # stats 딕셔너리의 모든 키와 데이터 타입을 출력하는 코드
-                for key, value in stats.items():
-                    print(f"Key: {key}, Type: {type(value).__name__}")
                 logger.info(json.dumps(stats, indent=0))
 
                 # Record stats to wandb
