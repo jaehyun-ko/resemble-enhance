@@ -174,7 +174,7 @@ class TrainLoop:
                 assert isinstance(loss_G, Tensor)
                 stats["G/loss"] = loss_G.item()
                 stats["G/lr"] = engine_G.get_lr()[0]
-                stats["G/grad_norm"] = engine_G.get_grad_norm() or 0
+                stats["G/grad_norm"] = 0 if engine_G.get_grad_norm() is None else engine_G.get_grad_norm().item()
 
                 if loss_G.isnan().item():
                     logger.error("Generator loss is NaN, skipping step")
@@ -213,6 +213,9 @@ class TrainLoop:
                 torch.cuda.synchronize()
                 stats["elapsed_time"] = time.time() - start_time
                 stats = tree_map(lambda x: float(f"{x:.4g}") if isinstance(x, float) else x, stats)
+                # stats 딕셔너리의 모든 키와 데이터 타입을 출력하는 코드
+                for key, value in stats.items():
+                    print(f"Key: {key}, Type: {type(value).__name__}")
                 logger.info(json.dumps(stats, indent=0))
 
                 # Record stats to wandb
