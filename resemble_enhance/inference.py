@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 @torch.inference_mode()
-def inference_chunk(model, dwav, sr, device, npad=441):
+def inference_chunk(model, dwav, sr, device, npad=160):
     assert model.hp.wav_rate == sr, f"Expected {model.hp.wav_rate} Hz, got {sr} Hz"
     del sr
 
@@ -36,7 +36,7 @@ def compute_corr(x, y):
     return torch.fft.ifft(torch.fft.fft(x) * torch.fft.fft(y).conj()).abs()
 
 
-def compute_offset(chunk1, chunk2, sr=44100):
+def compute_offset(chunk1, chunk2, sr=16000):
     """
     Args:
         chunk1: (T,)
@@ -74,7 +74,7 @@ def compute_offset(chunk1, chunk2, sr=44100):
     return offset
 
 
-def merge_chunks(chunks, chunk_length, hop_length, sr=44100, length=None):
+def merge_chunks(chunks, chunk_length, hop_length, sr=16000, length=None):
     signal_length = (len(chunks) - 1) * hop_length + chunk_length
     overlap_length = chunk_length - hop_length
     signal = torch.zeros(signal_length, device=chunks[0].device)

@@ -19,7 +19,7 @@ def _make_stft_cfg(hop_length, win_length=None):
 
 
 def get_stft_cfgs(hp: HParams):
-    assert hp.wav_rate == 44100, f"wav_rate must be 44100, got {hp.wav_rate}"
+    assert hp.wav_rate == 16000, f"wav_rate must be 16000, got {hp.wav_rate}"
     return [_make_stft_cfg(h) for h in (100, 256, 512)]
 
 

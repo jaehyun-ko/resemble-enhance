@@ -35,14 +35,14 @@ def _rich_print_dict(d, title="Config", key="Key", value="Value"):
 @dataclass(frozen=True)
 class HParams:
     # Dataset
-    fg_dir: Path = Path("data/fg")
+    fg_dir: Path = Path("data/fg-16k")
     bg_dir: Path = Path("data/bg")
     rir_dir: Path = Path("data/rir")
     load_fg_only: bool = False
     praat_augment_prob: float = 0
 
     # Audio settings
-    wav_rate: int = 44_100
+    wav_rate: int = 16_000
     n_fft: int = 2048
     win_size: int = 2048
     hop_size: int = 420  # 9.5ms
@@ -84,7 +84,7 @@ class HParams:
 
     @property
     def stft_cfgs(self):
-        assert self.wav_rate == 44_100, f"wav_rate must be 44_100, got {self.wav_rate}"
+        assert self.wav_rate == 16_000, f"wav_rate must be 16_000, got {self.wav_rate}"
         return [_make_stft_cfg(h) for h in (100, 256, 512)]
 
     @classmethod

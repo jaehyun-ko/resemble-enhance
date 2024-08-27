@@ -9,3 +9,4 @@ version.py
 __pycache__
 model_repo
 /wandb
+playground.ipynb
