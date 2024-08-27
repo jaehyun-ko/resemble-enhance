@@ -43,7 +43,7 @@ class HParams:
 
     # Audio settings
     wav_rate: int = 16_000
-    n_fft: int = 2048
+    n_fft: int = 2048 #768, 160 셋팅이 맞지 않을까.
     win_size: int = 2048
     hop_size: int = 420  # 9.5ms
     num_mels: int = 128
