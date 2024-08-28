@@ -8,11 +8,6 @@ from .hparams import HParams
 
 class MelSpectrogram(nn.Module):
     def __init__(self, hp: HParams):
-        """
-        Torch implementation of Resemble's mel extraction.
-        Note that the values are NOT identical to librosa's implementation
-        due to floating point precisions.
-        """
         super().__init__()
         self.hp = hp
         self.melspec = TorchMelSpectrogram(
@@ -25,7 +20,6 @@ class MelSpectrogram(nn.Module):
             n_mels=hp.num_mels,
             power=1,
             normalized=False,
-            # NOTE: Folowing librosa's default.
             pad_mode="constant",
             norm="slaney",
             mel_scale="slaney",
@@ -36,22 +30,22 @@ class MelSpectrogram(nn.Module):
         self.hop_size = hp.hop_size
 
     def forward(self, wav, pad=True):
-        """
-        Args:
-            wav: [B, T]
-        """
         device = wav.device
-        if wav.is_mps:
-            wav = wav.cpu()
-            self.to(wav.device)
+
+        # Ensure that self.melspec is on the same device as wav
+        self.melspec = self.melspec.to(device)
+
         if self.preemphasis > 0:
             wav = torch.nn.functional.pad(wav, [1, 0], value=0)
             wav = wav[..., 1:] - self.preemphasis * wav[..., :-1]
+        
         mel = self.melspec(wav)
         mel = self._amp_to_db(mel)
         mel_normed = self._normalize(mel)
+        
         assert not pad or mel_normed.shape[-1] == 1 + wav.shape[-1] // self.hop_size  # Sanity check
         mel_normed = mel_normed.to(device)
+        
         return mel_normed  # (M, T)
 
     def _normalize(self, s, headroom_db=15):
@@ -59,3 +53,4 @@ class MelSpectrogram(nn.Module):
 
     def _amp_to_db(self, x):
         return x.clamp_min(self.hp.stft_magnitude_min).log10() * 20
+
