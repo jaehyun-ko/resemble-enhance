@@ -8,6 +8,11 @@ from .hparams import HParams
 
 class MelSpectrogram(nn.Module):
     def __init__(self, hp: HParams):
+        """
+        Torch implementation of Resemble's mel extraction.
+        Note that the values are NOT identical to librosa's implementation
+        due to floating point precisions.
+        """
         super().__init__()
         self.hp = hp
         self.melspec = TorchMelSpectrogram(
@@ -30,8 +35,14 @@ class MelSpectrogram(nn.Module):
         self.hop_size = hp.hop_size
 
     def forward(self, wav, pad=True):
+        """
+        Args:
+            wav: [B, T]
+        """
         device = wav.device
-
+        if wav.is_mps:
+            wav = wav.cpu()
+            self.to(wav.device)
         # Ensure that self.melspec is on the same device as wav
         self.melspec = self.melspec.to(device)
 
