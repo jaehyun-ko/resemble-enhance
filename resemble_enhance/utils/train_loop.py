@@ -87,7 +87,9 @@ class TrainLoop:
             "update_every": self.update_every,
             "eval_every": self.eval_every,
             "device": self.device,
-        })
+        },
+            resume=True,
+            id ="wthcldvh")
         
         engine_G = self.load_G(self.run_dir)
         if self.load_D is None:
