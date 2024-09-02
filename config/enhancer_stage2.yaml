@@ -1,5 +1,5 @@
 lcfm_training_mode: cfm
-batch_size_per_gpu: 32
+batch_size_per_gpu: 27
 training_seconds: 3.0
 gan_training_start_step: null
 lcfm_z_scale: 6

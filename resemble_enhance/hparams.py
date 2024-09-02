@@ -35,7 +35,7 @@ def _rich_print_dict(d, title="Config", key="Key", value="Value"):
 @dataclass(frozen=True)
 class HParams:
     # Dataset
-    fg_dir: Path = Path("data/fg-16k")
+    fg_dir: Path = Path("data/fg-48k")
     bg_dir: Path = Path("data/bg")
     rir_dir: Path = Path("data/rir")
     load_fg_only: bool = False

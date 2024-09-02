@@ -54,7 +54,8 @@ class TrainLoop:
     update_every: int = 5_000
     eval_every: int = 5_000
     backup_steps: tuple[int, ...] = (5_000, 100_000, 500_000)
-
+    run_id: str = None
+    
     device: str = "cuda"
     eval_fn: EvalFn | None = None
     gan_training_start_step: int | None = None
@@ -88,8 +89,8 @@ class TrainLoop:
             "eval_every": self.eval_every,
             "device": self.device,
         },
-                   resume=True,
-                   id = 'ix1vmalw',
+                   resume=True if self.run_id is not None else False,
+                   id = self.run_id,
                    )
         
         engine_G = self.load_G(self.run_dir)
