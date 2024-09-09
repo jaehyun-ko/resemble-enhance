@@ -99,6 +99,7 @@ def main():
 
     train_loop = TrainLoop(
         run_dir=args.run_dir,
+        run_id = args.run_id,
         train_dl=train_dl,
         load_G=partial(load_G, hp=hp),
         device=args.device,
