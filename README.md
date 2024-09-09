@@ -83,13 +83,13 @@ Then, you can train the enhancer in two stages. The first stage is to train the 
 ##### Stage 1
 
 ```bash
-python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage1.yaml <wandb_run_id> runs/enhancer_stage1
+python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage1.yaml --run_id <wandb_run_id> runs/enhancer_stage1
 ```
 
 ##### Stage 2
 
 ```bash
-python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage2.yaml <wandb_run_id> runs/enhancer_stage2
+python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage2.yaml --run_id <wandb_run_id> runs/enhancer_stage2
 ```
 
 ## Blog
