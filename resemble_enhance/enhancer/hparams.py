@@ -16,6 +16,8 @@ class HParams(HParamsBase):
     lcfm_z_scale: float = 5
 
     vocoder_extra_dim: int = 32
+    
+    distort_prob: float = 0.5
 
     gan_training_start_step: int | None = 5_000
     enhancer_stage1_run_dir: Path | None = None

@@ -48,7 +48,7 @@ def save_wav(path: Path, wav: Tensor, rate: int):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("run_dir", type=Path)
-    parser.add_argument("--run_id", type=str, default=None)
+    parser.add_argument("--run_id", type=str, default="n23etqmk")
     parser.add_argument("--yaml", type=Path, default=None)
     parser.add_argument("--device", type=str, default="cuda")
     args = parser.parse_args()
@@ -127,6 +127,7 @@ def main():
 
     train_loop = TrainLoop(
         run_dir=args.run_dir,
+        run_id=args.run_id,
         train_dl=train_dl,
         load_G=partial(load_G, hp=hp),
         load_D=partial(load_D, hp=hp),

@@ -89,10 +89,11 @@ class TrainLoop:
             "eval_every": self.eval_every,
             "device": self.device,
         },
-                   resume=True if self.run_id is not None else False,
+                   resume="must" if self.run_id is not None else "allow",
                    id = self.run_id,
-                   )
-        
+                )
+        # breakpoint()
+        # print("self.run_id", self.run_id)
         engine_G = self.load_G(self.run_dir)
         if self.load_D is None:
             engine_D = None

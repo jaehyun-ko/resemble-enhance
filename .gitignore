@@ -9,3 +9,4 @@ version.py
 __pycache__
 model_repo
 /wandb
+test_samples/Korean_RIR_LPF_Noise_distort_compress_resampled.wav

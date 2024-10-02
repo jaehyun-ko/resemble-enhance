@@ -89,7 +89,7 @@ python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage1.yaml --d
 ##### Stage 2
 
 ```bash
-CUDA_VISIBLE_DEVICE=2 python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage2.yaml  --run_id <wandb_run_id> runs/enhancer_stage2
+CUDA_VISIBLE_DEVICES=2 python -m resemble_enhance.enhancer.train --yaml config/enhancer_stage2.yaml  --run_id <wandb_run_id> runs/enhancer_stage2
 ```
 
 ## Blog

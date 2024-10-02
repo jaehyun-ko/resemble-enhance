@@ -21,8 +21,8 @@ def _fn(path, solver, nfe, tau, denoising):
     dwav, sr = torchaudio.load(path)
     dwav = dwav.mean(dim=0)
 
-    wav1, new_sr = denoise(dwav, sr, device)
-    wav2, new_sr = enhance(dwav, sr, device, nfe=nfe, solver=solver, lambd=lambd, tau=tau)
+    wav1, new_sr = denoise(dwav, sr, device, run_dir=r'/home/kjh/kjh4/ENH/resemble-enhance/runs/denoiser')
+    wav2, new_sr = enhance(dwav, sr, device, nfe=nfe, solver=solver, lambd=lambd, tau=tau, run_dir=r'/home/kjh/kjh4/ENH/resemble-enhance/runs/enhancer_stage2')
 
     wav1 = wav1.cpu().numpy()
     wav2 = wav2.cpu().numpy()
